@@ -5,6 +5,10 @@ import { GetStaticProps, GetStaticPaths } from 'next'
 
 import styles from '../../styles/Home.module.css'
 
+const delay = ms => {
+  return new Promise(resolve => setTimeout(resolve, ms))
+}
+
 export const getStaticPaths: GetStaticPaths = async () => {
   const res = await fetch('https://jsonplaceholder.typicode.com/posts?_limit=10')
   const posts = await res.json()
@@ -15,6 +19,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 }
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
+  await delay(5000)
   const res = await fetch(`https://jsonplaceholder.typicode.com/posts/${params.id}`)
   const post = await res.json()
 
